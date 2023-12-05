@@ -1,14 +1,15 @@
-package com.example.myapplication;
+package com.example.myapplication.vista;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-public class MainActivity2 extends AppCompatActivity {
+import com.example.myapplication.R;
+
+public class ActivityRecuperarPass extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,7 @@ public class MainActivity2 extends AppCompatActivity {
         botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity2.this, MainActivity.class);
+                Intent intent = new Intent(ActivityRecuperarPass.this, ActivityLogin.class);
                 startActivity(intent);
                 finish();
             }

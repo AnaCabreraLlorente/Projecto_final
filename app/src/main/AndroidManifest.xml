@@ -13,19 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".MainActivity5"
+            android:name=".vista.ActivityDatosUser"
             android:exported="true" />
         <activity
-            android:name=".MainActivity4"
+            android:name=".vista.ActivityHome"
             android:exported="true" />
         <activity
-            android:name=".MainActivity3"
+            android:name=".vista.ActivityRegistro"
             android:exported="true" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".vista.ActivityRecuperarPass"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".vista.ActivityLogin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
     </application>
 
 </manifest>
