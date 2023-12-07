@@ -92,13 +92,14 @@ public class ActivityHome extends AppCompatActivity {
                         }else{Log.d("RESPONSE_TAG", "Response from server: " + response);}
                     }
                 });
-
+                return true;
             case R.id.modificar:
                 String correo = getIntent().getStringExtra("EMAIL");
                 Intent intent_update = new Intent(ActivityHome.this, ActivityModificar.class);
                 intent_update.putExtra("EMAIL", correo);
                 startActivity(intent_update);
                 finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -114,7 +115,8 @@ public class ActivityHome extends AppCompatActivity {
         BottomNavigationView bottomNavigation = findViewById(R.id.navigationView);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-    private void loadProfileFragment(String email) {
+
+    public void loadProfileFragment(String email) {
         if (email != null) {
             Usuario user = new Usuario(email);
             showDataUser data = new showDataUser();
@@ -159,9 +161,10 @@ public class ActivityHome extends AppCompatActivity {
     }
 
     private void openFragment(FragmentoPerfil fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        if (fragment != null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();}
     }
 }

@@ -36,5 +36,4 @@ public class FragmentoPerfil extends Fragment {
             Log.e("FragmentoPerfil", "Alguno de los TextViews no se ha inicializado correctamente");
         }
     }
-
 }

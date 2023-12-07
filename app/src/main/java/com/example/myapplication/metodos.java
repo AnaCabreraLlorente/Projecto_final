@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Build;
+import android.util.Patterns;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
@@ -61,6 +62,11 @@ public class metodos {
         } else {
             return false;
         }
+    }
+
+    private boolean validarEmail(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
     }
 
 

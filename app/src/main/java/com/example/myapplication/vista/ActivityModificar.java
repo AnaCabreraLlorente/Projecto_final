@@ -3,8 +3,10 @@ package com.example.myapplication.vista;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.example.myapplication.DAL.UpdateUser;
+import com.example.myapplication.DAL.showDataUser;
 import com.example.myapplication.R;
 import com.example.myapplication.Usuario;
 
@@ -24,6 +27,7 @@ public class ActivityModificar extends AppCompatActivity {
         setContentView(R.layout.activity_modificar);
         toolbar = getSupportActionBar();
         toolbar.setTitle("Editar perfil");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button update = findViewById(R.id.bUpdate);
         EditText newUsername = findViewById(R.id.etNusername);
@@ -48,6 +52,10 @@ public class ActivityModificar extends AppCompatActivity {
                                 Toast.makeText(ActivityModificar.this, "Datos actualizados", Toast.LENGTH_SHORT).show();
                                 newUsername.setText("");
                                 newFullname.setText("");
+                                showDataUser mostrar = new showDataUser();
+//                                Intent intent = new Intent(ActivityModificar.this, ActivityHome.class);
+//                                startActivity(intent);
+//                                finish();
                             }else{
                                 Log.d("RESPONSE_TAG", "Response from server: " + response);
                                 Toast.makeText(ActivityModificar.this, "No se han podido guardar los cambios", Toast.LENGTH_SHORT).show();
@@ -58,7 +66,20 @@ public class ActivityModificar extends AppCompatActivity {
             }
         });
 
-
-
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            // Lógica para manejar la acción de la flecha de retroceso
+            Intent intent = new Intent(this, ActivityHome.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

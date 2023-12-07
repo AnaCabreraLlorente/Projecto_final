@@ -58,7 +58,7 @@ public class ActivityRegistro extends AppCompatActivity {
 
                 }else{
                     if (!metodos.passwordValidate(password)){
-                        Toast.makeText(ActivityRegistro.this, "La contraseña debe contener almenos una mayuscula, número y caracter especial", Toast.LENGTH_SHORT).show();
+                        etPassword.setError("La contraseña debe contener almenos una mayuscula, número y caracter especial");
                     }else{
                     InsertUser registrarUsuario = new InsertUser();
                     Usuario user = new Usuario(username, metodos.hashPassword(password) , fullname, email);

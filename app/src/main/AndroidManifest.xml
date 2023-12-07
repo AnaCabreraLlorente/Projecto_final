@@ -14,26 +14,29 @@
         android:theme="@style/Theme.MyApplication">
         <activity
             android:name=".vista.ActivityModificar"
-            android:exported="false" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".vista.ActivityDatosUser"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".vista.ActivityHome"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".vista.ActivityRegistro"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".vista.ActivityRecuperarPass"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".vista.ActivityLogin"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
