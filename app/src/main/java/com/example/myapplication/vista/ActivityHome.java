@@ -8,10 +8,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.example.myapplication.DAL.DeleteUser;
 import com.example.myapplication.DAL.showDataUser;
 import com.example.myapplication.FragmentHome;
 import com.example.myapplication.FragmentoPerfil;
@@ -31,12 +35,12 @@ public class ActivityHome extends AppCompatActivity {
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-           String email = getIntent().getStringExtra("EMAIL");
-           String password = getIntent().getStringExtra("CONTRASEÑA");
+            String email = getIntent().getStringExtra("EMAIL");
+//            String password = getIntent().getStringExtra("CONTRASEÑA");
             switch (item.getItemId()) {
                 case R.id.navigation_perfil:
                     fragmentoPerfil = new FragmentoPerfil();
-                    loadProfileFragment(email, password);
+                    loadProfileFragment(email);
                     openFragment(fragmentoPerfil);
                     return true;
                 case R.id.navigation_feed:
@@ -47,16 +51,57 @@ public class ActivityHome extends AppCompatActivity {
                     transaction.addToBackStack(null);
                     transaction.commit();
                     return true;
-                case R.id.navigation_sesion:
-                    Intent intent_home = new Intent(ActivityHome.this, ActivityLogin.class);
-                    startActivity(intent_home);
-                    finish();
+                case R.id.navigation_search:
+                    toolbar.setTitle("Buscar");
+
                     // Tu lógica para la pestaña de artistas
                     return true;
             }
             return false;
         }
     };
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.barra_superior, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_logout:
+                Intent intent_home = new Intent(ActivityHome.this, ActivityLogin.class);
+                startActivity(intent_home);
+                finish();
+                return true;
+            case R.id.borrar_cuenta:
+                String email = getIntent().getStringExtra("EMAIL");
+//                String password = getIntent().getStringExtra("CONTRASEÑA");
+                Usuario user = new Usuario(email);
+                DeleteUser delete = new DeleteUser();
+                delete.borrarUsuario("https://uselessutilities.net/ProyetoDAM/deleteUser.php", ActivityHome.this, user, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.equalsIgnoreCase("1")){
+                            Log.d("RESPONSE_TAG", "Response from server: " + response);
+                            Toast.makeText(ActivityHome.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ActivityHome.this, ActivityLogin.class);
+                            startActivity(intent);
+                            finish();
+                        }else{Log.d("RESPONSE_TAG", "Response from server: " + response);}
+                    }
+                });
+
+            case R.id.modificar:
+                Intent intent_update = new Intent(ActivityHome.this, ActivityModificar.class);
+                startActivity(intent_update);
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,34 +109,12 @@ public class ActivityHome extends AppCompatActivity {
         setContentView(R.layout.activity_home_prueba);
         toolbar = getSupportActionBar();
         toolbar.setTitle("Home");
-
         BottomNavigationView bottomNavigation = findViewById(R.id.navigationView);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        //Button b_perfil = findViewById(R.id.button);
-
-//        String email = getIntent().getStringExtra("EMAIL");
-//        String password = getIntent().getStringExtra("CONTRASEÑA");
-
-
-        //b_perfil.setOnClickListener(new View.OnClickListener() {
-
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(ActivityHome.this, ActivityDatosUser.class);
-//                intent.putExtra("EMAIL", email);
-//                intent.putExtra("CONTRASEÑA", password);
-//                startActivity(intent);
-//                finish();
-//
-//            }
-//        });
-
-
     }
-    private void loadProfileFragment(String email, String password) {
-        if (email != null && password != null) {
-            Usuario user = new Usuario(email, password);
+    private void loadProfileFragment(String email) {
+        if (email != null) {
+            Usuario user = new Usuario(email);
             showDataUser data = new showDataUser();
             data.datosUser("https://uselessutilities.net/ProyetoDAM/getDataUser.php",
                     ActivityHome.this, user, new Response.Listener<String>() {
@@ -105,6 +128,7 @@ public class ActivityHome extends AppCompatActivity {
                                     String userName = jsonObject.getString("username");
                                     String fullName = jsonObject.getString("fullname");
                                     String userEmail = jsonObject.getString("email");
+                                    openFragment(fragmentoPerfil);
                                     displayProfileFragment(userName, fullName, userEmail);
                                 }
                             } catch (JSONException e) {

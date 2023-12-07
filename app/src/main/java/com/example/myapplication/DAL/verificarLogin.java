@@ -1,5 +1,4 @@
 package com.example.myapplication.DAL;
-
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.Nullable;
@@ -25,7 +24,6 @@ public class verificarLogin {
                     },
                 error -> {
                     callback.onResponse(error.getMessage());
-                    Log.d("Hola", Objects.requireNonNull(error.getMessage()));
 
                 }
                 ){

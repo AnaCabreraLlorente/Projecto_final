@@ -7,6 +7,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -14,34 +16,53 @@ import javax.crypto.spec.PBEKeySpec;
 public class metodos {
     public static String hashPassword(String password) {
         try {
-            int iterations = 1000;
-            char[] characters = password.toCharArray();
-            SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+            // Generar salt aleatorio
+            SecureRandom random = new SecureRandom();
             byte[] salt = new byte[16];
-            sr.nextBytes(salt);
+            random.nextBytes(salt);
 
-            PBEKeySpec spec = new PBEKeySpec(characters, salt, iterations, 64 * 8);
-            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            byte[] hash = skf.generateSecret(spec).getEncoded();
+            // Configurar parámetros para la derivación de clave
+            int iterations = 600000;
+            int keyLength = 128; // Longitud de la clave en bits
+            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, keyLength);
 
-            BigInteger bi = new BigInteger(1, hash);
-            String hex = bi.toString(16);
+            // Generar la clave en formato PBKDF2-SHA256
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+            byte[] hash = factory.generateSecret(spec).getEncoded();
 
-            int paddingLength = (hash.length * 2) - hex.length();
-            if (paddingLength > 0) {
-                hex = String.format("%0" + paddingLength + "d", 0) + hex;
+            // Codificar el resultado en formato Base64
+            String encodedHash = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                encodedHash = Base64.getEncoder().encodeToString(hash);
+            }
+            String encodedSalt = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                encodedSalt = Base64.getEncoder().encodeToString(salt);
             }
 
-            bi = new BigInteger(1, salt);
-            String saltHex = bi.toString(16);
+            // Construir la cadena final en el formato deseado
+            String encryptedPassword = "pbkdf2_sha256$" + iterations + "$" + encodedSalt + "$" + encodedHash;
+            return encryptedPassword;
 
-            paddingLength = (salt.length * 2) - saltHex.length();
-            if (paddingLength > 0) {
-                saltHex = String.format("%0" + paddingLength + "d", 0) + saltHex;
-            }
 
-            return iterations + ":" + saltHex + ":" + hex;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new RuntimeException(e);
         }
-    }}
+
+    }
+
+    public static Boolean passwordValidate(String password){
+        String regex = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[$;._\\-*]).{8,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+}

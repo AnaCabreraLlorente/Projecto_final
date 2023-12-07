@@ -21,6 +21,8 @@ import com.example.myapplication.DAL.verificarLogin;
 
 public class ActivityLogin extends AppCompatActivity {
 
+    Integer contadorIntentos = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,7 @@ public class ActivityLogin extends AppCompatActivity {
                                 @Override
                                 public void onResponse(String response) {
                                     Log.d("RESPONSE_TAG", "Response from server: " + response); // Agregar esta línea para ver la respuesta del servidor en los logs
-                                    if (response.equals("1")){
+                                    if ((response != null) && (response.equals("1"))){
                                         Toast.makeText(ActivityLogin.this, "Logeado", Toast.LENGTH_SHORT).show();
 //                                        progressDialog dialog = new progressDialog(ActivityLogin.this);
 //                                        dialog.show();
@@ -77,8 +79,14 @@ public class ActivityLogin extends AppCompatActivity {
                                         finish();
 
                                     } else {
-                                        Toast.makeText(ActivityLogin.this,
-                                                "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                                        contadorIntentos += 1;
+                                        if (contadorIntentos == 3){
+                                            Toast.makeText(ActivityLogin.this, "La cuenta ha sido bloqueada", Toast.LENGTH_SHORT).show();
+                                            contadorIntentos = 0;
+                                        }else{
+                                            Toast.makeText(ActivityLogin.this,
+                                                    "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 }
 

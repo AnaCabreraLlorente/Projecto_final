@@ -25,10 +25,10 @@ public class ActivityDatosUser extends AppCompatActivity {
         TextView name = findViewById(R.id.tvName);
         TextView correo = findViewById(R.id.tvEmail);
         String et_email = getIntent().getStringExtra("EMAIL");
-        String et_password = getIntent().getStringExtra("CONTRASEÑA");
+//        String et_password = getIntent().getStringExtra("CONTRASEÑA");
 
-        if (et_email != null && et_password != null) {
-            Usuario user = new Usuario(et_email, et_password);
+        if (et_email != null) {
+            Usuario user = new Usuario(et_email);
             showDataUser data = new showDataUser();
             data.datosUser("https://uselessutilities.net/ProyetoDAM/getDataUser.php",
                         ActivityDatosUser.this, user, new Response.Listener<String>() {

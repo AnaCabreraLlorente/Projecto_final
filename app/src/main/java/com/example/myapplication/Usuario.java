@@ -18,6 +18,10 @@ public class Usuario {
         this.password = password;
     }
 
+    public Usuario(String email){
+        this.email = email;
+    }
+
     public String getUserName() {
         return userName;
     }

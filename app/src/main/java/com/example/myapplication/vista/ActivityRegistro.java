@@ -35,6 +35,7 @@ public class ActivityRegistro extends AppCompatActivity {
         EditText etUsername = findViewById(R.id.editTextTextNombreUsuario);
         EditText etPassword = findViewById(R.id.editTextTextPassword);
         Button boton = findViewById(R.id.button);
+
         botonAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +55,11 @@ public class ActivityRegistro extends AppCompatActivity {
 
                 if (username.isEmpty() || password.isEmpty() || fullname.isEmpty() || email.isEmpty()) {
                     Toast.makeText(ActivityRegistro.this, "Por favor, rellene todos los campos", Toast.LENGTH_SHORT).show();
+
                 }else{
+                    if (!metodos.passwordValidate(password)){
+                        Toast.makeText(ActivityRegistro.this, "La contraseña debe contener almenos una mayuscula, número y caracter especial", Toast.LENGTH_SHORT).show();
+                    }else{
                     InsertUser registrarUsuario = new InsertUser();
                     Usuario user = new Usuario(username, metodos.hashPassword(password) , fullname, email);
 
@@ -67,7 +72,6 @@ public class ActivityRegistro extends AppCompatActivity {
                                         Intent intent_registrer = new Intent(ActivityRegistro.this, ActivityLogin.class);
                                         startActivity(intent_registrer);
                                         finish();
-
                                     }else {
                                         Toast.makeText(ActivityRegistro.this,
                                                 "No se ha podido registrar", Toast.LENGTH_SHORT).show();
@@ -77,13 +81,7 @@ public class ActivityRegistro extends AppCompatActivity {
 
 
                             });
-                    progressDialog dialog = new progressDialog(ActivityRegistro.this);
-                    dialog.show();
-                    etUsername.setText("");
-                    etPassword.setText("");
-                    etFullname.setText("");
-                    etEmail.setText("");
-            }}
+            }}}
         });
 
 
