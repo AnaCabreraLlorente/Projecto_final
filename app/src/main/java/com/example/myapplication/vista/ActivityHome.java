@@ -94,7 +94,9 @@ public class ActivityHome extends AppCompatActivity {
                 });
 
             case R.id.modificar:
+                String correo = getIntent().getStringExtra("EMAIL");
                 Intent intent_update = new Intent(ActivityHome.this, ActivityModificar.class);
+                intent_update.putExtra("EMAIL", correo);
                 startActivity(intent_update);
                 finish();
             default:
