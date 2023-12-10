@@ -1,4 +1,4 @@
-package com.example.myapplication.vista;
+package com.example.myapplication.vista.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -11,16 +11,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.example.myapplication.DAL.DeleteUser;
 import com.example.myapplication.DAL.showDataUser;
-import com.example.myapplication.FragmentHome;
-import com.example.myapplication.FragmentoPerfil;
+import com.example.myapplication.vista.Fragmentos.FragmentHome;
+import com.example.myapplication.vista.Fragmentos.FragmentoPerfil;
 import com.example.myapplication.R;
-import com.example.myapplication.Usuario;
+import com.example.myapplication.Modelo.Usuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
@@ -35,12 +34,10 @@ public class ActivityHome extends AppCompatActivity {
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            String email = getIntent().getStringExtra("EMAIL");
-//            String password = getIntent().getStringExtra("CONTRASEÑA");
             switch (item.getItemId()) {
                 case R.id.navigation_perfil:
                     fragmentoPerfil = new FragmentoPerfil();
-                    loadProfileFragment(email);
+                    loadProfileFragment();
                     openFragment(fragmentoPerfil);
                     return true;
                 case R.id.navigation_feed:
@@ -77,7 +74,6 @@ public class ActivityHome extends AppCompatActivity {
                 return true;
             case R.id.borrar_cuenta:
                 String email = getIntent().getStringExtra("EMAIL");
-//                String password = getIntent().getStringExtra("CONTRASEÑA");
                 Usuario user = new Usuario(email);
                 DeleteUser delete = new DeleteUser();
                 delete.borrarUsuario("https://uselessutilities.net/ProyetoDAM/deleteUser.php", ActivityHome.this, user, new Response.Listener<String>() {
@@ -116,7 +112,8 @@ public class ActivityHome extends AppCompatActivity {
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    public void loadProfileFragment(String email) {
+    public void loadProfileFragment() {
+        String email = getIntent().getStringExtra("EMAIL");
         if (email != null) {
             Usuario user = new Usuario(email);
             showDataUser data = new showDataUser();

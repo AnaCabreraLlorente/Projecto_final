@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.vista;
 
 import android.app.Dialog;
 import android.content.Context;

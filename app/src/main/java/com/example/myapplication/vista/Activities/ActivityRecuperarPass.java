@@ -1,4 +1,4 @@
-package com.example.myapplication.vista;
+package com.example.myapplication.vista.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import com.example.myapplication.R;
 
+// **** SIN USO ****
 public class ActivityRecuperarPass extends AppCompatActivity {
 
     @Override

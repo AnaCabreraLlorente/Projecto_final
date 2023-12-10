@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vista.ActivityRegistro">
+    tools:context=".vista.Activities.ActivityRegistro">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -129,11 +129,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewLogo"
         app:layout_constraintVertical_bias="1.0"
         app:passwordToggleEnabled="true">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etpass"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:hint="@string/contrase_a"
             android:background="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>

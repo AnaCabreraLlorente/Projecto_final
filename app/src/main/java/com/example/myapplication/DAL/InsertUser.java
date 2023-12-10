@@ -11,7 +11,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.Usuario;
+import com.example.myapplication.Modelo.Usuario;
 
 import java.util.HashMap;
 import java.util.Map;

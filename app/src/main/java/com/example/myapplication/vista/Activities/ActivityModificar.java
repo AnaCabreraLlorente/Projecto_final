@@ -1,4 +1,4 @@
-package com.example.myapplication.vista;
+package com.example.myapplication.vista.Activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +16,7 @@ import com.android.volley.Response;
 import com.example.myapplication.DAL.UpdateUser;
 import com.example.myapplication.DAL.showDataUser;
 import com.example.myapplication.R;
-import com.example.myapplication.Usuario;
+import com.example.myapplication.Modelo.Usuario;
 
 public class ActivityModificar extends AppCompatActivity {
     private ActionBar toolbar;
@@ -53,9 +53,6 @@ public class ActivityModificar extends AppCompatActivity {
                                 newUsername.setText("");
                                 newFullname.setText("");
                                 showDataUser mostrar = new showDataUser();
-//                                Intent intent = new Intent(ActivityModificar.this, ActivityHome.class);
-//                                startActivity(intent);
-//                                finish();
                             }else{
                                 Log.d("RESPONSE_TAG", "Response from server: " + response);
                                 Toast.makeText(ActivityModificar.this, "No se han podido guardar los cambios", Toast.LENGTH_SHORT).show();
@@ -70,10 +67,10 @@ public class ActivityModificar extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        String email = getIntent().getStringExtra("EMAIL");
         if (id == android.R.id.home) {
-            // Lógica para manejar la acción de la flecha de retroceso
             Intent intent = new Intent(this, ActivityHome.class);
+            intent.putExtra("EMAIL", email);
             startActivity(intent);
             finish();
             return true;

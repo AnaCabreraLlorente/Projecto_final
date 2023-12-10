@@ -1,4 +1,4 @@
-package com.example.myapplication.vista;
+package com.example.myapplication.vista.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,8 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.example.myapplication.R;
-import com.example.myapplication.Usuario;
-import com.example.myapplication.progressDialog;
+import com.example.myapplication.Modelo.Usuario;
 import com.example.myapplication.DAL.verificarLogin;
 
 

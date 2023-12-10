@@ -1,5 +1,5 @@
 //package com.example.myapplication;
-//
+// ***** CALSE COMENTA, VERSION ANTERIOR, CONEXION JDBC
 //import android.content.Context;
 //import android.widget.TableLayout;
 //import android.widget.Toast;

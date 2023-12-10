@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".vista.ActivityModificar"
+            android:name=".vista.Activities.ActivityModificar"
             android:exported="true"
             android:screenOrientation="portrait"/>
 
@@ -22,19 +22,19 @@
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".vista.ActivityHome"
+            android:name=".vista.Activities.ActivityHome"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".vista.ActivityRegistro"
+            android:name=".vista.Activities.ActivityRegistro"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".vista.ActivityRecuperarPass"
+            android:name=".vista.Activities.ActivityRecuperarPass"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".vista.ActivityLogin"
+            android:name=".vista.Activities.ActivityLogin"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

@@ -1,24 +1,20 @@
-package com.example.myapplication.vista;
+package com.example.myapplication.vista.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.example.myapplication.DAL.InsertUser;
 import com.example.myapplication.R;
-import com.example.myapplication.Usuario;
+import com.example.myapplication.Modelo.Usuario;
 import com.example.myapplication.metodos;
-import com.example.myapplication.progressDialog;
 
 
 public class ActivityRegistro extends AppCompatActivity {
@@ -60,6 +56,7 @@ public class ActivityRegistro extends AppCompatActivity {
                     if (!metodos.passwordValidate(password)){
                         etPassword.setError("La contraseña debe contener almenos una mayuscula, número y caracter especial");
                     }else{
+
                     InsertUser registrarUsuario = new InsertUser();
                     Usuario user = new Usuario(username, metodos.hashPassword(password) , fullname, email);
 
